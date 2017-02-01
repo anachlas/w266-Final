@@ -1,0 +1,123 @@
+sudo apt-get install build-essential git-core pkg-config automake libtool wget zlib1g-dev python-dev libbz2-dev
+git clone https://github.com/moses-smt/mosesdecoder.git
+cd mosesdecoder
+make -f contrib/Makefiles/install-dependencies.gmake
+./compile.sh
+sudo apt-get install libgoogle-perftools-dev libsparsehash-dev
+reboot
+git clone https://github.com/clab/fast_align.git
+cd fast_align/
+mkdir build
+cd build/
+cmake ..
+apt install cmake
+cmake ..
+make
+fast_align
+cd ..
+fast_align
+cd ~/mosesdecoder
+cd ~
+ls
+cd corpus/
+ls
+cat europarl-v7.pt-en.tok.en
+cd corpus/
+wget http://www.statmt.org/europarl/v7/pt-en.tgz
+ls
+tar zxvf pt-en.tgz
+ls
+~/mosesdecoder/scripts/tokenizer/tokenizer.perl -l en < ~/corpus/europarl-v7.pt-en.en > ~/corpus/europarl-v7.pt-en.tok.en
+~/mosesdecoder/scripts/tokenizer/tokenizer.perl -l pt < ~/corpus/europarl-v7.pt-en.pt > ~/corpus/europarl-v7/pt-en.tok.pt
+ls
+rm pt-en.tgz
+ls
+~/mosesdecoder/scripts/tokenizer/tokenizer.perl -l pt < ~/corpus/europarl-v7.pt-en.pt > ~/corpus/europarl-v7.pt-en.tok.pt
+~/mosesdecoder/scripts/recaser/train-truecaser.perl      --model ~/corpus/truecase-model.en --corpus     \
+cd corpus/
+ls
+pgrep perl
+~/mosesdecoder/scripts/recaser/train-truecaser.perl --model ~/corpus/truecase-model.en --corpus ~/corpus/europarl-v7.pt-en.tok.en
+ls
+cd corpus/
+ls
+~/mosesdecoder/scripts/recaser/train-truecaser.perl --model ~/corpus/truecase-model.pt --corpus ~/corpus/europarl-v7.pt-en.tok.pt
+~/mosesdecoder/scripts/recaser/train-truecaser.perl --model ~/corpus/truecase-model.en < ~/corpus/europarl-v7.pt-en.tok.en > ~/corpus/europarl-v7.pt-en.true.en
+~/mosesdecoder/scripts/recaser/train-truecaser.perl --model ~/corpus/truecase-model.pt < ~/corpus/europarl-v7.pt-en.tok.pt > ~/corpus/europarl-v7.pt-en.true.pt
+ls
+cat europarl-v7.pt-en.true.en
+cat truecase-model.en
+cat head truecase-model.en
+head europarl-v7.pt-en.en
+head europarl-v7.pt-en.tok.en
+head europarl-v7.pt-en.true.en
+head truecase-model.en
+~/mosesdecoder/scripts/recaser/truecase.perl --model ~/corpus/truecase-model.pt < ~/corpus/europarl-v7.pt-en.tok.pt > ~/corpus/europarl-v7.pt-en.true.pt
+head europarl-v7.pt-en.true.pt
+~/mosesdecoder/scripts/recaser/truecase.perl --model ~/corpus/truecase-model.en < ~/corpus/europarl-v7.pt-en.tok.en > ~/corpus/europarl-v7.pt-en.true.en
+~/mosesdecoder/scripts/training/clean-corpus-n.perl ~/corpus/europarl-v7.pt-en.true pt en ~/corpus/europarl-v7.pt-en.clean 1 80
+mkdir ~/lm
+ls
+head europarl-v7.pt-en.clean.en
+cd ~/lm
+echo "is this an English sentence ?"                          | ~/mosesdecoder/bin/query ~/corpus/europarl-v7.pt-en.blm.en
+mkdir ~/working
+ls
+mv ~/corpus/europarl-v7.pt-en.arpa.en
+mv ~/corpus/europarl-v7.pt-en.arpa.en ~/lm/
+ls
+mv ~/corpus/europarl-v7.pt-en.blm.en ~/lm/
+ls
+nohup nice ~/mosesdecoder/scripts/training/train-model.perl -root-dir train -corpus ~/corpus/europarl-v7.pt-en.clean -f pt -e en  -alignment grow-diag-final-and -reordering msd-bidirectional-fe  -lm 0:3:/root/lm/europarl-v7.pt-en.blm.en:8  -external-bin-dir ~/mosesdecoder/tools >& training.out &
+pgrep nice
+pgrep perl
+pgrep pearl
+pgrep perl
+ls
+cd Final/
+ls
+cd lm
+ls
+cd ~
+ls
+echo "is this an English sentence ?"                          | ~/mosesdecoder/bin/query ~/corpus/europarl-v7.pt-en.blm.en
+head europarl-v7.pt-en.clean.en
+ls
+cd working/
+ls
+cd ..
+cd w266/
+ls
+cd cloud/
+ls
+cd ..
+ls
+cd ..
+ls
+cd Final/
+ls
+cd ..
+cd corpus/
+ls
+cd ..
+cd lm/
+ls
+cd ..
+ls
+nohup nice ~/mosesdecoder/bin/moses               -f ~/working/filtered-newstest2011/moses.ini      < ~/corpus/newstest2011.true.fr                   > ~/working/newstest2011.translated.en            2> ~/working/newstest2011.out
+rebooot
+vi .bash_history
+ls
+echo "is this an English sentence ?"                       ls
+cd lm
+ls
+echo "is this an English sentence ?"     {
+echo "is this an English sentence ?" | ~/mosesdecoder/bin/query europarl-v7.pt-en.blm.en
+cd ..
+cd working/
+ls
+cd train/
+ls
+cd model/
+ls
+~/mosesdecoder/bin/moses -f moses.ini 
